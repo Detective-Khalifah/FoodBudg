@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainActivity">
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.android.foodbudg.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" >
+        <action
+            android:id="@+id/action_mainActivity_to_orderActivity2"
+            app:destination="@id/orderActivity2" />
+    </activity>
+    <activity
+        android:id="@+id/orderActivity2"
+        android:name="com.example.android.foodbudg.OrderActivity"
+        android:label="order_summary"
+        tools:layout="@layout/order_summary" >
+        <action
+            android:id="@+id/action_orderActivity2_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </activity>
+</navigation>

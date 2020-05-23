@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?><!--android.support.constraint.ConstraintLayout
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <EditText
+            android:id="@+id/client_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/white"
+            android:hint="Name"
+            android:inputType="textCapWords" />
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@android:color/white"
+            >
+        <EditText
+            android:id="@+id/dept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:paddingRight="8dp"
+            android:hint="Department"
+            android:background="@android:color/white"
+            android:inputType="textCapWords" />
+
+        <EditText
+            android:id="@+id/faculty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/white"
+
+            android:hint="Faculty"
+            android:inputType="textCapWords" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/fast_food_1"
+            android:textColor="@android:color/holo_red_light"
+            style="@android:style/TextAppearance.Large"/>
+        <!-- make it brown -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/incG"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:onClick="decrementGurasa"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/gQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/initial_gurasa_quantity"
+                android:textColor="@android:color/black"
+                style="@android:style/TextAppearance.Small" />
+
+            <Button
+                android:id="@+id/decG"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:onClick="incrementGurasa"
+                android:text="+" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/topping1Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:clickable="false"
+                android:longClickable="false"
+                android:text="@string/topping_1"
+                android:background="@android:color/white"
+                style="@android:style/TextAppearance.Small"/>
+
+            <CheckBox
+                android:id="@+id/topping2Box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/topping_2"
+                android:background="@android:color/white"
+                android:onClick="box"
+                style="@android:style/TextAppearance.Small"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fast_food_2"
+                android:textColor="@android:color/holo_orange_light"
+                style="@android:style/TextAppearance.Large" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:onClick="incrementYam"
+                    android:text="+" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/initial_plates_of_yam"
+                    android:textColor="@android:color/black"
+                    android:background="@android:color/white"
+                    style="@android:style/TextAppearance.Small" />
+                <TextView
+                    android:id="@+id/yQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8dp"
+                    android:background="@android:color/white"
+                    android:layout_marginRight="16dp"
+                    android:text=""/>
+
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:onClick="decrementYam"
+                    android:text="-" />
+
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/sauce_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sauce"
+                android:background="@android:color/white"
+                android:onClick="box"
+                style="@android:style/TextAppearance.Small"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/beverages"
+                android:textColor="@android:color/holo_blue_dark"
+                style="@android:style/TextAppearance.Medium"/>
+            <!--android:onClick="beverages"-->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/kunu_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/beve_1"
+                android:onClick="box"
+                style="@android:style/TextAppearance.Small"
+                android:paddingBottom="0dp"/>
+
+                <Spinner
+                    android:id="@+id/milk_spin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/beverage_amount"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/fanta_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/beve_2"
+                android:onClick="box"
+                style="@android:style/TextAppearance.Small"
+                android:paddingBottom="0dp"/>
+
+                <Spinner
+                    android:id="@+id/fanta_spin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/beverage_amount"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                android:id="@+id/coke_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/beve_3"
+                android:onClick="box"
+                style="@android:style/TextAppearance.Small"
+                android:paddingBottom="0dp"/>
+
+                <Spinner
+                    android:id="@+id/coke_spin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/beverage_amount"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/order_summary_b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="order summary"
+                android:textAllCaps="true"
+                android:layout_gravity="center"/>
+                <!--android:onClick="orderExec"/>-->
+
+        </LinearLayout>
+
+<!--        <fragment-->
+<!--            android:id="@+id/fragment"-->
+<!--            android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:defaultNavHost="true"-->
+<!--            app:navGraph="@navigation/nav_graph" /> -->
+
+    </LinearLayout>
+
+</ScrollView>

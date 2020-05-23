@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Food Budg</string>
+
+    <string name="order">Sautu</string>
+
+    <string name="order_summary_text">Aiken ka:</string>
+
+    <!-- 1st fast food -->
+    <string name="fast_food_1">Gurasa</string>
+
+    <!-- Minimum slices of bread to order -->
+    <string name="initial_gurasa_quantity">0</string>
+
+    <!-- an always-on topping - can't go without it -->
+    <string name="topping_1">Kuli-kuli</string>
+
+    <!-- optional topping of veggies-->
+    <string name="topping_2">Kayan miya</string>
+
+    <!-- Fast food on counter 2 - Yam + sauce -->
+    <string name="fast_food_2">Doya da Miya</string>
+
+    <!-- Servings of yam -->
+    <string name="initial_plates_of_yam">Faranti (servings):</string>
+
+    <!-- Some sauce to go with the fried yam -->
+    <string name="sauce">Miya</string>
+
+    <!-- Some beverage to gulp it all down -->
+    <string name="beverages">Kayan sha</string>
+
+    <!-- Kunun aya - Tiger-nut milk/pap, whatchamacallit, a (Nigerian) local beverage -->
+    <string name="beve_1">Kunun aya</string>
+
+    <!-- Fanta beverage from wherever -->
+    <string name="beve_2">Fanta</string>
+
+    <!-- Coke beverage from wherever -->
+    <string name="beve_3">Coke</string>
+
+    <!-- -->
+    <string name="max_gurasa">"Ba zaka iya karɓar sama da 30 ba!"</string>
+
+    <!-- -->
+    <string name="min_gurasa">"Ba zaka iya karɓar ƙasa da 3 ba!"</string>
+
+    <!-- -->
+    <string name="max_yam">"Ba zaka iya karɓar faranti fiye da 10 ba!"</string>
+
+    <!-- -->
+    <string name="min_yam">"Ba zaka iya karɓar faranti ƙasa da 1 ba!"</string>
+
+    <string-array name="beverage_amount">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+    </string-array>
+
+</resources>
