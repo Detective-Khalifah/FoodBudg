@@ -1,17 +1,10 @@
 package com.example.android.foodbudg;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,6 +77,7 @@ public class OrderActivity extends AppCompatActivity {
 
                 totalCost = 0.0;
 
+                // TODO: Find a way to start Main Activity afresh at this point of the app usage/interaction
                 // Create a new intent to open the {@link OrderActivity}
                 Intent mainIntent = new Intent(OrderActivity.this, MainActivity.class);
                 // Start the new activity

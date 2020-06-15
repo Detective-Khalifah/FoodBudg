@@ -1,6 +1,7 @@
 package com.example.android.foodbudg;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,16 +18,16 @@ import android.widget.Toast;
 import java.io.Serializable;
 
 
-public class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemSelectedListener */{
+public class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemSelectedListener */ {
 
-    static int cokeVal1, fantaVal1, milkVal1, gQuantity = 0, yQuantity = 0;
-    static String message1, name, dept, fac;
-    static boolean coke, fanta, milk, sauce, veggies;
-    static double gPrice = 0.0, yPrice = 0.0;
-    CheckBox cokeBox, fantaBox, milkBox;
+    private static int cokeVal1, fantaVal1, milkVal1, gQuantity = 0, yQuantity = 0;
+    private static String message1, name, dept, fac;
+    private static boolean coke, fanta, milk, sauce, veggies;
+    private static double gPrice = 0.0, yPrice = 0.0;
+    CheckBox cokeBox, fantaBox, milkBox, topping2_Box, sauce_box;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -36,34 +37,36 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
         fantaBox = findViewById(R.id.fanta_box);
         milkBox = findViewById(R.id.kunu_box);
 
+        topping2_Box = findViewById(R.id.topping2Box);
+        sauce_box = findViewById(R.id.sauce_box);
 
 //        //BEVERAGE COUNT
 //        //String pos = beve1.getItemAtPosition(position).toString();
         Spinner beve1 = findViewById(R.id.coke_spin);
         beve1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected (AdapterView<?> parent, View view, int position, long id) {
                 cokeVal1 = new Integer(Integer.parseInt(parent.getItemAtPosition(position).toString()));
-                if (cokeVal1 >= 1){
+                if (cokeVal1 >= 1) {
                     coke = true;
                     cokeBox.setChecked(true);
-                } else {{
+                } else {
                     coke = false;
                     cokeBox.setChecked(false);
-                }}
+                }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected (AdapterView<?> parent) {
             }
         });
 
         Spinner beve2 = findViewById(R.id.fanta_spin);
         beve2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected (AdapterView<?> parent, View view, int position, long id) {
                 fantaVal1 = new Integer(Integer.parseInt(parent.getItemAtPosition(position).toString()));
-                if (fantaVal1 >=1) {
+                if (fantaVal1 >= 1) {
                     fanta = true;
                     fantaBox.setChecked(true);
                 } else {
@@ -73,14 +76,14 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected (AdapterView<?> parent) {
             }
         });
 
         Spinner beve3 = findViewById(R.id.milk_spin);
         beve3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected (AdapterView<?> parent, View view, int position, long id) {
                 milkVal1 = new Integer(Integer.parseInt(parent.getItemAtPosition(position).toString()));
                 if (milkVal1 > 0) {
                     milk = true;
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected (AdapterView<?> parent) {
             }
         });
 
@@ -109,27 +112,49 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
             // The code in this function/method/section will be executed when the order summary button is clicked on.
 
             @Override
-            public void onClick(View view) {
-                //get editText data
-                name = clientName.getText().toString();
-                dept = deptET.getText().toString();
-                fac = facultyET.getText().toString();
+            public void onClick (View view) {
+                try {
+                    //get editText data
+                    if (clientName.getText() != null)
+                        name = clientName.getText().toString();
+                    else {
+                        clientName.setHintTextColor(Color.RED);
+                        clientName.setHint("Enter your name!");
+                    }
 
-//                makeItHappen();
+                    if (deptET.getText() != null)
+                        dept = deptET.getText().toString();
+                    else {
+                        deptET.setHintTextColor(Color.RED);
+                        deptET.setHint("What is your department?!");
+                    }
 
-                message1 = name + " of " + dept + " department in the " + fac + " faculty. " + getString(R.string.order_summary_text) + "\n";
-                StringBuilder mssg1 = new StringBuilder(message1);
-                mssg1.append((gQuantity >= 3 ? getString(R.string.fast_food_1) + ": ₦" + gPrice + "\n" : "\n") + (yQuantity >= 1 ? getString(R.string.fast_food_2) + ": ₦" + yPrice + "\n" : "\n"));
+                    if (facultyET.getText() != null)
+                        fac = facultyET.getText().toString();
+                    else {
+                        facultyET.setHintTextColor(Color.RED);
+                        facultyET.setHint("And faculty?!");
+                    }
 
-                // Create a new intent to open the {@link FamilyActivity}
-                Intent orderSIntent = new Intent(MainActivity.this, OrderActivity.class);
+                    try {
+                        message1 = name + " of " + dept + " department in the " + fac + " faculty. " + getString(R.string.order_summary_text) + "\n";
+                        StringBuilder mssg1 = new StringBuilder(message1);
+                        mssg1.append((gQuantity >= 3 ? getString(R.string.fast_food_1) + ": ₦" + gPrice + "\n" : "\n") + (yQuantity >= 1 ? getString(R.string.fast_food_2) + ": ₦" + yPrice + "\n" : "\n"));
 
-                orderSIntent.putExtra("summary", (Serializable) mssg1);
+                        // Create a new intent to open the {@link FamilyActivity}
+                        Intent orderSIntent = new Intent(MainActivity.this, OrderActivity.class);
+                        orderSIntent.putExtra("summary", (Serializable) mssg1);
+                        Log.v("MainActivity", "Checkboxes: " + coke + fanta + milk + veggies + sauce);
 
-                Log.v("MainActivity", "Checkboxes: " + coke + fanta + milk + veggies + sauce);
+                        // Start the order activity
+                        startActivity(orderSIntent);
+                    } catch (NullPointerException npe1b) {
+                        Log.v(MainActivity.class.getName(), "Can't start OrderActivity");
+                    }
+                } catch (NullPointerException npe) {
+                    //
+                }
 
-                // Start the order activity
-                startActivity(orderSIntent);
             }
 
         });
@@ -137,30 +162,12 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
     }
 
     // Checkboxes checking/testing
-    public void box(View view) {
+    public void box (View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked and its current state
-        switch(view.getId()) {
-            case R.id.topping2Box:
-                if (checked){
-                    veggies = true;
-                    displayG(gPrice, gQuantity);
-                } else {
-                    veggies = false;
-                    displayG(gPrice, gQuantity);
-                }
-                break;
-            case R.id.sauce_box:
-                if (checked){
-                    sauce = true;
-                    displayY(yPrice, yQuantity);
-                } else {
-                    sauce = false;
-                    displayY(yPrice, yQuantity);
-                }
-                break;
+        switch (view.getId()) {
             case R.id.kunu_box:
                 milk = checked;
                 break;
@@ -173,53 +180,54 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
         }
     }
 
-    public void incrementGurasa(View view) {
-        if (veggies) {
+    public void incrementGurasa (View view) {
+        // check clicked button and tickbox, then compute accordingly
+        if (topping2_Box.isChecked()) {
             if (gQuantity == 30) {
                 Toast.makeText(this, getString(R.string.max_gurasa), Toast.LENGTH_SHORT).show();
                 return;
             }
             gQuantity += 3;
-            gPrice = (gQuantity/3) * 60;
-        } else if (veggies == false) {
+            gPrice = (gQuantity / 3) * 60;
+        } else {
             if (gQuantity == 30) {
                 Toast.makeText(this, getString(R.string.max_gurasa), Toast.LENGTH_SHORT).show();
                 return;
             }
             gQuantity += 3;
-            gPrice = (gQuantity/3) * 50;
+            gPrice = (gQuantity / 3) * 50;
         }
         displayG(gPrice, gQuantity);
     }
 
-    public void decrementGurasa(View view) {
-        if (veggies) {
+    public void decrementGurasa (View view) {
+        if (topping2_Box.isChecked()) {
             if (gQuantity == 0) {
                 Toast.makeText(this, getString(R.string.min_gurasa), Toast.LENGTH_SHORT).show();
                 return;
             }
             gQuantity -= 3;
-            gPrice = (gQuantity/3) * 60;
-        } else if (!veggies) {
+            gPrice = (gQuantity / 3) * 60;
+        } else {
             if (gQuantity == 0) {
                 Toast.makeText(this, getString(R.string.min_gurasa), Toast.LENGTH_SHORT).show();
                 return;
             }
             gQuantity -= 3;
-            gPrice = (gQuantity/3) * 50;
+            gPrice = (gQuantity / 3) * 50;
         }
         displayG(gPrice, gQuantity);
     }
 
-    public void incrementYam(View view) {
-        if (sauce) {
+    public void incrementYam (View view) {
+        if (sauce_box.isChecked()) {
             if (yQuantity >= 10) {
                 Toast.makeText(this, getString(R.string.max_yam), Toast.LENGTH_LONG).show();
                 return;
             }
             yQuantity++;
             yPrice = yQuantity * 100;
-        } else if (!sauce) {
+        } else {
             if (yQuantity >= 10) {
                 Toast.makeText(this, getString(R.string.max_yam), Toast.LENGTH_LONG).show();
                 return;
@@ -230,15 +238,15 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
         displayY(yPrice, yQuantity);
     }
 
-    public void decrementYam(View view) {
-        if (sauce) {
+    public void decrementYam (View view) {
+        if (sauce_box.isChecked()) {
             if (yQuantity == 0) {
                 Toast.makeText(this, getString(R.string.min_yam), Toast.LENGTH_LONG).show();
                 return;
             }
             yQuantity--;
             yPrice = yQuantity * 100;
-        } else if (!sauce) {
+        } else {
             if (yQuantity == 0) {
                 Toast.makeText(this, getString(R.string.min_yam), Toast.LENGTH_LONG).show();
                 return;
@@ -249,12 +257,12 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
         displayY(yPrice, yQuantity);
     }
 
-    public void displayG(double gP, int gQ) {
+    public void displayG (double gP, int gQ) {
         TextView myGuOrder = findViewById(R.id.gQuantity);
         myGuOrder.setText("" + gQ + " @₦" + gP);
     }
 
-    public void displayY(double yP, int yQ) {
+    public void displayY (double yP, int yQ) {
         TextView myYSOrder = findViewById(R.id.yQuantity);
         myYSOrder.setText(yQ + "( @₦ " + yP + ")");
     }
