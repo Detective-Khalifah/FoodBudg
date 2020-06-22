@@ -1,34 +1,40 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
     android:background="@color/order_summary"
     tools:context="com.example.android.foodbudg.OrderActivity">
 
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_gravity="top"
+        android:layout_weight="8"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/order_summary_deets"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:textColor="@android:color/white"
         android:fontFamily="casual"
         android:textDirection="ltr"
         android:textAlignment="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_weight="2"
+        android:orientation="vertical">
 
     <Button
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/submit"
-        android:layout_alignBottom="@id/order_summary_deets"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="48dp"
         android:onClick="submitToApp"
         android:text="SUBMIT ORDER" />
 
@@ -36,12 +42,10 @@
         android:id="@+id/change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/submit"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:text="CHANGE ORDER">
-
     </Button>
+
+</LinearLayout>
 
 <!--    <fragment-->
 <!--        android:id="@+id/fragment2"-->
@@ -51,4 +55,4 @@
 <!--        app:defaultNavHost="false"-->
 <!--        app:navGraph="@navigation/nav_graph" />-->
 
-</RelativeLayout>
+</LinearLayout>
