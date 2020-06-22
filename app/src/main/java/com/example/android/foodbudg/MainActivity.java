@@ -20,10 +20,10 @@ import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemSelectedListener */ {
 
-    private static int cokeVal1, fantaVal1, milkVal1, gQuantity = 0, yQuantity = 0;
+    static int cokeVal1, fantaVal1, milkVal1, gQuantity = 0, yQuantity = 0;
     private static String message1, name, dept, fac;
-    private static boolean coke, fanta, milk, sauce, veggies;
-    private static double gPrice = 0.0, yPrice = 0.0;
+    static boolean coke, fanta, milk, sauce, veggies;
+    static double gPrice = 0.0, yPrice = 0.0;
     CheckBox cokeBox, fantaBox, milkBox, topping2_Box, sauce_box;
 
     @Override
