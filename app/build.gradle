@@ -18,6 +18,9 @@ android {
         }
     }
     namespace 'com.example.android.foodbudg'
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {

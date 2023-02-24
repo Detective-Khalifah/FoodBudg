@@ -1,295 +1,276 @@
-package com.example.android.foodbudg;
+package com.example.android.foodbudg
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.content.Intent
+import android.graphics.Color
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import com.example.android.foodbudg.databinding.ActivityMainBinding
+import java.io.Serializable
 
-import java.io.Serializable;
+class MainActivity : AppCompatActivity() /*implements AdapterView.OnItemSelectedListener */ {
 
-import androidx.appcompat.app.AppCompatActivity;
+    private val tag = this::class.simpleName
+    private lateinit var binding: ActivityMainBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-public class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemSelectedListener */ {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    static int cokeVal1, fantaVal1, milkVal1, gQuantity = 0, yQuantity = 0;
-    private static String message1, name, dept, fac;
-    static boolean coke, fanta, milk, sauce, veggies;
-    static double gPrice = 0.0, yPrice = 0.0;
-    CheckBox cokeBox, fantaBox, milkBox, topping2_Box, sauce_box;
-
-    @Override
-    protected void onCreate (Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Toast.makeText(this, "Language translation exists, but was simply removed for the fun of it. Enjoy!", Toast.LENGTH_LONG).show();
-
-        cokeBox = findViewById(R.id.coke_box);
-        fantaBox = findViewById(R.id.fanta_box);
-        milkBox = findViewById(R.id.kunu_box);
-
-        topping2_Box = findViewById(R.id.topping2Box);
-        sauce_box = findViewById(R.id.sauce_box);
+        Toast.makeText(
+            this,
+            "Language translation exists, but was simply removed for the fun of it. Enjoy!",
+            Toast.LENGTH_LONG
+        ).show()
 
 //        //BEVERAGE COUNT
 //        //String pos = beve1.getItemAtPosition(position).toString();
-        Spinner beve1 = findViewById(R.id.coke_spin);
-        beve1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected (AdapterView<?> parent, View view, int position, long id) {
-                cokeVal1 = new Integer(Integer.parseInt(parent.getItemAtPosition(position).toString()));
+        binding.cokeSpin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                cokeVal1 = parent.getItemAtPosition(position).toString().toInt()
                 if (cokeVal1 >= 1) {
-                    coke = true;
-                    cokeBox.setChecked(true);
+                    coke = true
+                    binding.cokeBox.isChecked = true
                 } else {
-                    coke = false;
-                    cokeBox.setChecked(false);
+                    coke = false
+                    binding.cokeBox.isChecked = false
                 }
             }
 
-            @Override
-            public void onNothingSelected (AdapterView<?> parent) {
-            }
-        });
-
-        Spinner beve2 = findViewById(R.id.fanta_spin);
-        beve2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected (AdapterView<?> parent, View view, int position, long id) {
-                fantaVal1 = new Integer(Integer.parseInt(parent.getItemAtPosition(position).toString()));
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        binding.fantaSpin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                fantaVal1 = parent.getItemAtPosition(position).toString().toInt()
                 if (fantaVal1 >= 1) {
-                    fanta = true;
-                    fantaBox.setChecked(true);
+                    fanta = true
+                    binding.fantaBox.isChecked = true
                 } else {
-                    fanta = false;
-                    fantaBox.setChecked(false);
+                    fanta = false
+                    binding.fantaBox.isChecked = false
                 }
             }
 
-            @Override
-            public void onNothingSelected (AdapterView<?> parent) {
-            }
-        });
-
-        Spinner beve3 = findViewById(R.id.milk_spin);
-        beve3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected (AdapterView<?> parent, View view, int position, long id) {
-                milkVal1 = new Integer(Integer.parseInt(parent.getItemAtPosition(position).toString()));
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        binding.milkSpin.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                milkVal1 = parent.getItemAtPosition(position).toString().toInt()
                 if (milkVal1 > 0) {
-                    milk = true;
-                    milkBox.setChecked(true);
+                    milk = true
+                    binding.kunuBox.isChecked = true
                 } else {
-                    milk = false;
-                    milkBox.setChecked(false);
+                    milk = false
+                    binding.kunuBox.isChecked = false
                 }
             }
 
-            @Override
-            public void onNothingSelected (AdapterView<?> parent) {
-            }
-        });
-
-        // Find the View that shows the order summary
-        Button orderSummary = findViewById(R.id.order_summary_b);
-
-        final EditText clientName = findViewById(R.id.client_name);
-        final EditText deptET = findViewById(R.id.dept);
-        final EditText facultyET = findViewById(R.id.faculty);
-
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
 
         // Set a click listener on the order summary Button View
-        orderSummary.setOnClickListener(new View.OnClickListener() {
-            // The code in this function/method/section will be executed when the order summary button is clicked on.
-
-            @Override
-            public void onClick (View view) {
-                try {
-                    //get editText data
-                    if (clientName.getText() != null)
-                        name = clientName.getText().toString();
-                    else {
-                        clientName.setHintTextColor(Color.RED);
-                        clientName.setHint("Enter your name!");
-                    }
-
-                    if (deptET.getText() != null)
-                        dept = deptET.getText().toString();
-                    else {
-                        deptET.setHintTextColor(Color.RED);
-                        deptET.setHint("What is your department?!");
-                    }
-
-                    if (facultyET.getText() != null)
-                        fac = facultyET.getText().toString();
-                    else {
-                        facultyET.setHintTextColor(Color.RED);
-                        facultyET.setHint("And faculty?!");
-                    }
-
-                    try {
-                        message1 = name + " of " + dept + " department in the " + fac + " faculty. " + getString(R.string.order_summary_text) + "\n";
-                        StringBuilder mssg1 = new StringBuilder(message1);
-                        mssg1.append((gQuantity >= 3 ? getString(R.string.fast_food_1) + ": ₦" + gPrice + "\n" : "\n") + (yQuantity >= 1 ? getString(R.string.fast_food_2) + ": ₦" + yPrice + "\n" : "\n"));
-
-                        // Create a new intent to open the {@link FamilyActivity}
-                        Intent orderSIntent = new Intent(MainActivity.this, OrderActivity.class);
-                        orderSIntent.putExtra("summary", (Serializable) mssg1);
-                        Log.v("MainActivity", "Checkboxes: " + coke + fanta + milk + veggies + sauce);
-
-                        // Start the order activity
-                        startActivity(orderSIntent);
-                    } catch (NullPointerException npe1b) {
-                        Log.v(MainActivity.class.getName(), "Can't start OrderActivity");
-                    }
-                } catch (NullPointerException npe) {
-                    //
+        binding.orderSummaryB.setOnClickListener {
+            try {
+                //get editText data
+                if (binding.clientName.text != null) name =
+                    binding.clientName.text.toString() else {
+                    binding.clientName.setHintTextColor(Color.RED)
+                    binding.clientName.hint = "Enter your name!"
                 }
+                if (binding.dept.text != null) dept = binding.dept.text.toString() else {
+                    binding.dept.setHintTextColor(Color.RED)
+                    binding.dept.hint = "What is your department?!"
+                }
+                if (binding.faculty.text != null) fac = binding.faculty.text.toString() else {
+                    binding.faculty.setHintTextColor(Color.RED)
+                    binding.faculty.hint = "And faculty?!"
+                }
+                try {
+                    message1 =
+                        """$name of $dept department in the $fac faculty. ${getString(R.string.order_summary_text)}"""
+                    val mssg1 = message1?.let { it1 -> StringBuilder(it1) }
+                    mssg1?.append(
+                        (if (gQuantity >= 3) """
+                                     ${getString(R.string.fast_food_1)}: ₦$gPrice
+                                     
+                                     """.trimIndent() else "\n") + if (yQuantity >= 1) """
+                                     ${getString(R.string.fast_food_2)}: ₦$yPrice
+                                     
+                                     """.trimIndent() else "\n"
+                    )
 
+                    // Create a new intent to open the {@link FamilyActivity}
+                    val orderSIntent = Intent(this@MainActivity, OrderActivity::class.java)
+                    orderSIntent.putExtra("summary", mssg1 as Serializable)
+                    Log.v(tag, "Checkboxes: " + coke + fanta + milk + veggies + sauce)
+
+                    // Start the order activity
+                    startActivity(orderSIntent)
+                } catch (npe1b: NullPointerException) {
+                    Log.v(tag, "Can't start OrderActivity")
+                }
+            } catch (npe: NullPointerException) {
+                //
             }
-
-        });
-
+        }
     }
 
     // Checkboxes checking/testing
-    public void box (View view) {
+    fun box(view: View) {
         // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked and its current state
-        switch (view.getId()) {
-            case R.id.kunu_box:
-                milk = checked;
-                break;
-            case R.id.coke_box:
-                coke = checked;
-                break;
-            case R.id.fanta_box:
-                fanta = checked;
-                break;
+        val checked = (view as CheckBox).isChecked
+        when (view.getId()) {
+            R.id.kunu_box -> milk = checked
+            R.id.coke_box -> coke = checked
+            R.id.fanta_box -> fanta = checked
         }
     }
 
-    public void incrementGurasa (View view) {
-        // check clicked button and tickbox, then compute accordingly
-        if (topping2_Box.isChecked()) {
+    fun incrementGurasa(view: View?) {
+        // check clicked button and checkbox, then compute accordingly
+        if (binding.topping2Box.isChecked) {
             if (gQuantity == 30) {
-                Toast.makeText(this, getString(R.string.max_gurasa), Toast.LENGTH_SHORT).show();
-                return;
+                Toast.makeText(this, getString(R.string.max_gurasa), Toast.LENGTH_SHORT).show()
+                return
             }
-            gQuantity += 3;
-            gPrice = (gQuantity / 3) * 60;
+            gQuantity += 3
+            gPrice = (gQuantity / 3 * 60).toDouble()
         } else {
             if (gQuantity == 30) {
-                Toast.makeText(this, getString(R.string.max_gurasa), Toast.LENGTH_SHORT).show();
-                return;
+                Toast.makeText(this, getString(R.string.max_gurasa), Toast.LENGTH_SHORT).show()
+                return
             }
-            gQuantity += 3;
-            gPrice = (gQuantity / 3) * 50;
+            gQuantity += 3
+            gPrice = (gQuantity / 3 * 50).toDouble()
         }
-        displayG(gPrice, gQuantity);
+        displayG(gPrice, gQuantity)
     }
 
-    public void decrementGurasa (View view) {
-        if (topping2_Box.isChecked()) {
+    fun decrementGurasa(view: View?) {
+        if (binding.topping2Box.isChecked) {
             if (gQuantity == 0) {
-                Toast.makeText(this, getString(R.string.min_gurasa), Toast.LENGTH_SHORT).show();
-                return;
+                Toast.makeText(this, getString(R.string.min_gurasa), Toast.LENGTH_SHORT).show()
+                return
             }
-            gQuantity -= 3;
-            gPrice = (gQuantity / 3) * 60;
+            gQuantity -= 3
+            gPrice = (gQuantity / 3 * 60).toDouble()
         } else {
             if (gQuantity == 0) {
-                Toast.makeText(this, getString(R.string.min_gurasa), Toast.LENGTH_SHORT).show();
-                return;
+                Toast.makeText(this, getString(R.string.min_gurasa), Toast.LENGTH_SHORT).show()
+                return
             }
-            gQuantity -= 3;
-            gPrice = (gQuantity / 3) * 50;
+            gQuantity -= 3
+            gPrice = (gQuantity / 3 * 50).toDouble()
         }
-        displayG(gPrice, gQuantity);
+        displayG(gPrice, gQuantity)
     }
 
-    public void incrementYam (View view) {
-        if (sauce_box.isChecked()) {
+    fun incrementYam(view: View?) {
+        if (binding.sauceBox.isChecked) {
             if (yQuantity >= 10) {
-                Toast.makeText(this, getString(R.string.max_yam), Toast.LENGTH_LONG).show();
-                return;
+                Toast.makeText(this, getString(R.string.max_yam), Toast.LENGTH_LONG).show()
+                return
             }
-            yQuantity++;
-            yPrice = yQuantity * 100;
+            yQuantity++
+            yPrice = (yQuantity * 100).toDouble()
         } else {
             if (yQuantity >= 10) {
-                Toast.makeText(this, getString(R.string.max_yam), Toast.LENGTH_LONG).show();
-                return;
+                Toast.makeText(this, getString(R.string.max_yam), Toast.LENGTH_LONG).show()
+                return
             }
-            yQuantity++;
-            yPrice = yQuantity * 80;
+            yQuantity++
+            yPrice = (yQuantity * 80).toDouble()
         }
-        displayY(yPrice, yQuantity);
+        displayY(yPrice, yQuantity)
     }
 
-    public void decrementYam (View view) {
-        if (sauce_box.isChecked()) {
+    fun decrementYam(view: View?) {
+        if (binding.sauceBox.isChecked) {
             if (yQuantity == 0) {
-                Toast.makeText(this, getString(R.string.min_yam), Toast.LENGTH_LONG).show();
-                return;
+                Toast.makeText(this, getString(R.string.min_yam), Toast.LENGTH_LONG).show()
+                return
             }
-            yQuantity--;
-            yPrice = yQuantity * 100;
+            yQuantity--
+            yPrice = (yQuantity * 100).toDouble()
         } else {
             if (yQuantity == 0) {
-                Toast.makeText(this, getString(R.string.min_yam), Toast.LENGTH_LONG).show();
-                return;
+                Toast.makeText(this, getString(R.string.min_yam), Toast.LENGTH_LONG).show()
+                return
             }
-            yQuantity--;
-            yPrice = yQuantity * 80;
+            yQuantity--
+            yPrice = (yQuantity * 80).toDouble()
         }
-        displayY(yPrice, yQuantity);
+        displayY(yPrice, yQuantity)
     }
 
-    public void displayG (double gP, int gQ) {
-        TextView myGuOrder = findViewById(R.id.gQuantity);
-        myGuOrder.setText("" + gQ + " @₦" + gP);
+    fun displayG(gP: Double, gQ: Int) {
+        val myGuOrder = findViewById<TextView>(R.id.gQuantity)
+        myGuOrder.text = "$gQ @₦$gP"
     }
 
-    public void displayY (double yP, int yQ) {
-        TextView myYSOrder = findViewById(R.id.yQuantity);
-        myYSOrder.setText(yQ + "( @₦ " + yP + ")");
+    fun displayY(yP: Double, yQ: Int) {
+        val myYSOrder = findViewById<TextView>(R.id.yQuantity)
+        myYSOrder.text = "$yQ( @₦ $yP)"
     }
 
+    companion object {
+        @JvmField
+        var cokeVal1 = 0
 
+        @JvmField
+        var fantaVal1 = 0
+
+        @JvmField
+        var milkVal1 = 0
+
+        @JvmField
+        var gQuantity = 0
+
+        @JvmField
+        var yQuantity = 0
+        private var message1: String? = null
+        private var name: String? = null
+        private var dept: String? = null
+        private var fac: String? = null
+
+        @JvmField
+        var coke = false
+
+        @JvmField
+        var fanta = false
+
+        @JvmField
+        var milk = false
+
+        @JvmField
+        var sauce = false
+
+        @JvmField
+        var veggies = false
+
+        @JvmField
+        var gPrice = 0.0
+
+        @JvmField
+        var yPrice = 0.0
+    }
 }
-
-/*
-* *** AMATEUR ***
-
-//        String message = (R.string.initial_plates_of_yam).toString;
-//        message += yQ;
-//        message += "(₦ " + yP + ")";
-//        String message = (, %);
-
-//    public void makeItHappen(){
-//        //check orders here:
-//        //convert to singleton later
-//        Log.v("MainActivity", "Total: " + total);
-//        String message1 = name + " of " + dept + " in the " + fac + " faculty. " + R.string.order_summary_text;
-//        message1 += "\n" + R.string.fast_food_1 + ":  ₦" + gPrice;
-//        message1 += "\n" + R.string.fast_food_2 + ": ₦" + yPrice;
-//        message1 += "\n" + R.string.beve_3 + ": ₦" + cokeVal1 + "\n" + R.string.beve_2 + ": ₦" + fantaVal1 + "\n" + R.string.beve_1 + ": ₦" + milkVal1;
-//        message1 += "\nTotal: " + total;
-//        OrderActivity orderInfo = new OrderActivity();
-//        orderInfo.orderExec(message1);
-////        orderInfo.orderExec(gPrice, gQuantity, yPrice, yQuantity, cokeVal1, fantaVal1, milkVal1, total, name, dept, fac);
-//    }
-*/
